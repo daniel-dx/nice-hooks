@@ -1,6 +1,6 @@
 {
   "name": "use-state-cb",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Let react useState hook has callback capability.",
   "main": "lib/index.js",
   "scripts": {

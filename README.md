@@ -36,6 +36,6 @@ const App = () => {
 ## Contribute
 
 * `git clone https://github.com/daniel-dx/use-state-cb.git`
-* `cd use-state-with-callback`
+* `cd use-state-cb`
 * `npm install`
 * `npm run test`
