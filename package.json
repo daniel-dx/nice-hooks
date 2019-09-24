@@ -1,7 +1,7 @@
 {
   "name": "use-state-cb",
-  "version": "0.1.0",
-  "description": "",
+  "version": "1.0.0",
+  "description": "Let react useState hook has callback capability.",
   "main": "lib/index.js",
   "scripts": {
     "build": "webpack --config ./webpack.config.js --mode=production",
@@ -9,7 +9,7 @@
     "test": "nyc mocha --require @babel/register --require ./test/dom.js 'src/**/**spec.js'",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
-  "keywords": [],
+  "keywords": ["react hook", "callback", "useState"],
   "author": "Daniel.xiao",
   "license": "MIT",
   "peerDependencies": {

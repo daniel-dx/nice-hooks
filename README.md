@@ -1,6 +1,6 @@
 # useStateCB React Hook
 
-Let react useState hook have callback capability.
+Let react useState hook has callback capability.
 
 ## Installation
 
@@ -16,11 +16,16 @@ import useStateCB from 'use-state-cb';
 const App = () => {
   const [count, setCount] = useStateCB(0);
 
+  // Note: must use count state with method arguments instead of directly using the value of count state defined above
+  function doSomeActions(count) {
+    document.title = `Count: ${count}`
+  }
+
   return (
     <div>
       {count}
 
-      <button type="button" onClick={() => setCount(count + 1, count => { console.log("count's value after rendering:" + count) })}>
+      <button type="button" onClick={() => setCount(count + 1, doSomeActions)}>
         Increase
       </button>
     </div>
