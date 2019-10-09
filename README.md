@@ -1,4 +1,4 @@
-# useStateCB React Hook
+# Nice Hooks
 
 A lot of nick hooks to make react hooks easier to use.
 
