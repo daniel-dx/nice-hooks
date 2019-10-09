@@ -1,7 +1,7 @@
 {
-  "name": "use-state-cb",
-  "version": "1.0.1",
-  "description": "Let react useState hook has callback capability.",
+  "name": "nice-hooks",
+  "version": "1.0.0",
+  "description": "A lot of nick hooks to make react hooks easier to use",
   "main": "lib/index.js",
   "scripts": {
     "build": "webpack --config ./webpack.config.js --mode=production",
@@ -9,7 +9,13 @@
     "test": "nyc mocha --require @babel/register --require ./test/dom.js 'src/**/**spec.js'",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
-  "keywords": ["react hook", "callback", "useState"],
+  "keywords": [
+    "react hook",
+    "callback",
+    "useState",
+    "life cycle",
+    "instance variable"
+  ],
   "author": "Daniel.xiao",
   "license": "MIT",
   "peerDependencies": {
@@ -26,6 +32,7 @@
     "babel-eslint": "^10.0.2",
     "babel-loader": "^8.0.5",
     "chai": "^4.2.0",
+    "chai-spies": "^1.0.0",
     "coveralls": "^3.0.3",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.13.2",
@@ -50,10 +57,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/daniel-dx/use-state-cb.git"
+    "url": "git+https://github.com/daniel-dx/nice-hooks.git"
   },
   "bugs": {
-    "url": "https://github.com/daniel-dx/use-state-cb/issues"
+    "url": "https://github.com/daniel-dx/nice-hooks/issues"
   },
-  "homepage": "https://github.com/daniel-dx/use-state-cb"
+  "homepage": "https://github.com/daniel-dx/nice-hooks"
 }
