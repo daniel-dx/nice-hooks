@@ -35,7 +35,7 @@ export function useLifeCycle({
         item => item.willUnmount && item.willUnmount.call(),
       );
     };
-  }, [didMount, didMountAndWillUnmount, willUnmount]);
+  }, []);
 
   useEffect(() => {
     if (initRef.current) initRef.current = false;
