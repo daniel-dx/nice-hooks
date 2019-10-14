@@ -23,15 +23,19 @@ export function useLifeCycle({
 } = {}) {
   const initRef = useRef(true);
 
+  const didMountFn = useRef(didMount);
+  const willUnmountFn = useRef(willUnmount);
+  const didMountAndWillUnmountConfig = useRef(didMountAndWillUnmount);
+
   useEffect(() => {
-    if (didMount) didMount.call();
-    didMountAndWillUnmount.forEach(
+    if (didMountFn.current) didMountFn.current.call();
+    didMountAndWillUnmountConfig.current.forEach(
       item => item.didMount && item.didMount.call(),
     );
 
     return () => {
-      if (willUnmount) willUnmount.call();
-      didMountAndWillUnmount.forEach(
+      if (willUnmountFn.current) willUnmountFn.current.call();
+      didMountAndWillUnmountConfig.current.forEach(
         item => item.willUnmount && item.willUnmount.call(),
       );
     };
