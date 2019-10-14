@@ -1,6 +1,6 @@
 # Nice Hooks
 
-[中文版](README_CN.md)
+[English](README.md)
 
 一些 Nice 的 Hooks，使得 React Hooks 更易于使用。
 
