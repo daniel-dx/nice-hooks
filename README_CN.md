@@ -2,11 +2,11 @@
 
 [中文版](README_CN.md)
 
-A lot of nice hooks to make react hooks easier to use.
+一些 Nice 的 Hooks，使得 React Hooks 更易于使用。
 
-> If you find this project is useful to you, please give me a star.
+> 如果你发现该项目对你有用，请加个星吧。
 
-## Installation
+## 安装
 
 `npm install nice-hooks`
 
@@ -14,21 +14,21 @@ A lot of nice hooks to make react hooks easier to use.
 
 - [useStateCB](#useStateCB)
 
-Let react useState hook has callback capability.
+让 react useState hook 拥有 callback 能力。
 
 - [useLifeCycle](#useLifeCycle)
 
-Support lifecycle methods to make code organization more readable, rather than using a bunch of useEffect.
+支持生命周期声明，以使代码组织更具可读性，而不是使用一堆 useEffect。
 
 - [useInstanceVar](#useInstanceVar)
 
-Keep the instance value after every re-render.
+支持实例变量。即在每次重新渲染后，可获取该变量最新的值。
 
-## Usage
+## 使用
 
 ### useStateCB
 
-Let react useState hook has callback capability.
+让 react useState hook 拥有 callback 能力。
 
 ```
 import React from 'react';
@@ -57,7 +57,7 @@ const App = () => {
 
 ### useLifeCycle
 
-Support lifecycle methods to make code organization more readable, rather than using a bunch of useEffect.
+支持生命周期声明，以使代码组织更具可读性，而不是使用一堆 useEffect。
 
 ```
 import React from 'react';
@@ -104,7 +104,7 @@ const App = () => {
 
 ### useInstanceVar
 
-Keep the instance value after every re-render.
+支持实例变量。即在每次重新渲染后，可获取该变量最新的值。
 
 ```
 # Example
@@ -140,7 +140,7 @@ const App = () => {
 
 ```
 
-## Contribute
+## 贡献
 
 * `git clone https://github.com/daniel-dx/nice-hooks.git`
 * `cd nice-hooks`

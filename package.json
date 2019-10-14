@@ -1,7 +1,7 @@
 {
   "name": "nice-hooks",
-  "version": "1.0.3",
-  "description": "A lot of nick hooks to make react hooks easier to use",
+  "version": "1.0.4",
+  "description": "A lot of nice hooks to make react hooks easier to use.",
   "main": "lib/index.js",
   "scripts": {
     "build": "webpack --config ./webpack.config.js --mode=production",
