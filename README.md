@@ -16,7 +16,7 @@ A lot of nice hooks to make react hooks easier to use.
 
 Lets you safely use the state of the react , whose value is the value you want, not the stale value. And also has the ability to callback.
 
-- [useSingleState (recommended)] (#useSingleState)
+- [useSingleState (recommended)](#useSingleState)
 
 Use `state` with a way like `this.state` and `this.setState` in the form of `class`. It is also safe to use state and have callback capabilities
 
@@ -28,7 +28,7 @@ Support lifecycle declarations to make code organization more readable, rather t
 
 Support for instance variables. That is, after each re-render, the latest value of the variable can be obtained.
 
-- [useSingleInstanceVar (recommended)] (#useSingleInstanceVar)
+- [useSingleInstanceVar (recommended)](#useSingleInstanceVar)
 
 (Recommended) Declare all instance variables together and use them closer to the instance variables
 
