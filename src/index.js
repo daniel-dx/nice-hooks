@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 
 export function useStateCB(initialState) {
   const [state, setState] = useState(initialState);
+  const stateRef = useRef(initialState);
 
   useEffect(() => {
     if (setState.callback) setState.callback(state);
@@ -9,10 +10,39 @@ export function useStateCB(initialState) {
 
   function newSetState(newState, callback) {
     if (callback) setState.callback = callback;
+    stateRef.current = newState;
     setState(newState);
   }
 
-  return [state, newSetState];
+  function getState() {
+    return stateRef.current;
+  }
+
+  return [getState, newSetState];
+}
+
+export function useSingleState(initialStateObj) {
+  const [getState, setState] = useStateCB(initialStateObj);
+  const initialStateObjRef = useRef(Object.assign({}, initialStateObj));
+  let stateObj = initialStateObjRef.current;
+
+  useEffect(function() {
+    Object.keys(stateObj).forEach(key => {
+      if (key) {
+        Object.defineProperty(stateObj, key, {
+          get() {
+            return getState()[key];
+          }
+        });
+      }
+    });
+  }, []);
+
+  function newSetState(partialStates, callback) {
+    setState(Object.assign({}, getState(), partialStates), callback);
+  }
+
+  return [stateObj, newSetState];
 }
 
 export function useLifeCycle({
@@ -50,9 +80,38 @@ export function useLifeCycle({
 export function useInstanceVar(initialValue) {
   const instRef = useRef(initialValue);
 
+  function getVal() {
+    return instRef.current;
+  }
+
   function setVal(val) {
     instRef.current = val;
   }
 
-  return [instRef.current, setVal];
+  return [getVal, setVal];
 }
+
+export function useSingleInstanceVar(initialValue) {
+  const instRef = useRef(initialValue);
+  const returnVal = useRef(Object.assign({}, initialValue)).current;
+
+  useEffect(function() {
+    Object.keys(returnVal).forEach(key => {
+      if (key) {
+        Object.defineProperty(returnVal, key, {
+          get() {
+            return instRef.current[key];
+          },
+          set(val) {
+            instRef.current = Object.assign({}, instRef.current, {
+              [key]: val
+            });
+          }
+        });
+      }
+    });
+  }, []);
+
+  return returnVal;
+}
+

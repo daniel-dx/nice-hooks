@@ -14,7 +14,11 @@
 
 - [useStateCB](#useStateCB)
 
-让 react useState hook 拥有 callback 能力。
+让你可以安全地使用 react 的 state，它的值就是你想要的值，而不是陈旧的值。并且也拥有了 callback 的能力。
+
+- [useSingleState（推荐使用）](#useSingleState)
+
+使用类似于 `class` 形式的 `this.state` 和 `this.setState` 的方式来使用 `state`。同样可以安全地使用 state，并且拥有 callback 能力
 
 - [useLifeCycle](#useLifeCycle)
 
@@ -24,31 +28,90 @@
 
 支持实例变量。即在每次重新渲染后，可获取该变量最新的值。
 
+- [useSingleInstanceVar（推荐使用）](#useSingleInstanceVar)
+
+（推荐使用）将所有实例变量声明在一起，并以更接近实例变量的方式使用
+
 ## 使用
 
 ### useStateCB
 
-让 react useState hook 拥有 callback 能力。
+让你可以安全地使用 react 的 state，它的值就是你想要的值，而不是陈旧的值。并且也拥有了 callback 的能力。
 
 ```
+# Example
+
 import React from 'react';
 
 import { useStateCB } from 'nice-hooks';
 
-const App = () => {
-  const [count, setCount] = useStateCB(0);
+export const UseStateCBDemoComp = () => {
+  const [getCount, setCount] = useStateCB(0);
 
-  // Note: must use count state with method arguments instead of directly using the value of count state defined above
-  function doSomeActions(count) {
-    document.title = `Count: ${count}`
+  function doSomeActions() {
+    console.log('Current count:', getCount());
   }
 
   return (
     <div>
-      {count}
+      <p>{getCount()}</p>
 
-      <button type="button" onClick={() => setCount(count + 1, doSomeActions)}>
+      <button type="button" onClick={() => setCount(getCount() + 1, doSomeActions)}>
         Increase
+      </button>
+    </div>
+  );
+};
+```
+
+### useSingleState
+
+（推荐使用）使用类似于 `class` 形式的 `this.state` 和 `this.setState` 的方式来使用 `state`。同样可以安全地使用 state，并且拥有 callback 能力
+
+```
+# Example
+
+import React from "react";
+
+import { useSingleState } from "nice-hooks";
+
+export const UseSingleStateDemoComp = () => {
+  const [state, setState] = useSingleState({
+    count: 0,
+    time: +new Date()
+  });
+
+  function doSomeActions() {
+    console.log("Current count:", state.count);
+  }
+
+  return (
+    <div>
+      <h2>useSingleState</h2>
+
+      <p>{state.count} {state.time}</p>
+
+      <button
+        type="button"
+        onClick={() =>
+          setState(
+            {
+              count: state.count + 1
+            },
+            doSomeActions
+          )
+        }
+      >
+        Increase
+      </button>
+      <button type="button"
+        onClick={() =>
+          setState({
+            time: +new Date()
+          })
+        }
+      >
+        Chnange Time
       </button>
     </div>
   );
@@ -60,6 +123,8 @@ const App = () => {
 支持生命周期声明，以使代码组织更具可读性，而不是使用一堆 useEffect。
 
 ```
+# Example
+
 import React from 'react';
 
 import { useLifeCycle } from 'nice-hooks';
@@ -73,7 +138,7 @@ const App = () => {
     },
 
     willUnmount() {
-      // Do something when the component is about to be unmount
+      // Do something when the component will be unmount
     },
 
     didUpdate() {
@@ -83,13 +148,19 @@ const App = () => {
     didMountAndWillUnmount: [
       {
         didMount() {
-          // Example a: setTimeout
-          // Example b: on event
+          // Example: setTimeout
+        },
+        willUnmount() {
+          // Example: clearTimeout
+        }
+      },
+      {
+        didMount() {
+          // Example: on resize event
           // ...
         },
         willUnmount() {
-          // Example a: clearTimeout
-          // Example b: off event 
+          // Example: off resize event 
           // ...
         }
       }
@@ -109,35 +180,76 @@ const App = () => {
 ```
 # Example
 
-import React, { useState } from 'react';
+import React from "react";
 
-import { useInstanceVar } from 'nice-hooks';
+import { useInstanceVar, useSingleState } from "nice-hooks";
 
-const App = () => {
+export const UseInstanceVarDemoComp = () => {
+  const [getIntervalVal, setIntervalVal] = useInstanceVar(null);
 
-  const [intervalVal, setIntervalVal] = useInstanceVar(null);
-
-  const [count, setCount] = useState(0);
+  const [state, setState] = useSingleState({ count: 0 });
 
   function start() {
-    const interval = setInterval(() => setCount(oldVal => oldVal + 1), 1000);
+    const interval = setInterval(
+      () => setState({ count: state.count + 1 }),
+      1000
+    );
     setIntervalVal(interval);
   }
 
   function stop() {
-    clearInterval(intervalVal);
-    setIntervalVal(null);
+    const interval = getIntervalVal();
+    interval && clearInterval(interval);
   }
 
   return (
     <div>
-      <p>{count}</p>
+      <p>{state.count}</p>
       <button onClick={start}>Start</button>
       <button onClick={stop}>Stop</button>
     </div>
   );
-}
+};
+```
 
+### useSingleInstanceVar
+
+（推荐使用）将所有实例变量声明在一起，并以更接近实例变量的方式使用
+
+```
+# Example
+
+import React from "react";
+
+import { useSingleInstanceVar, useSingleState } from "nice-hooks";
+
+export const UseSingleInstanceVarDemoComp = () => {
+  const instanceVal = useSingleInstanceVar({
+    interval: null
+  });
+
+  const [state, setState] = useSingleState({ count: 0 });
+
+  function start() {
+    instanceVal.interval = setInterval(
+      () => setState({ count: state.count + 1 }),
+      1000
+    );
+  }
+
+  function stop() {
+    const interval = instanceVal.interval;
+    interval && clearInterval(interval);
+  }
+
+  return (
+    <div>
+      <p>{state.count}</p>
+      <button type="button" onClick={start}>Start</button>
+      <button type="button" onClick={stop}>Stop</button>
+    </div>
+  );
+};
 ```
 
 ## 贡献

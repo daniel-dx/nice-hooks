@@ -14,130 +14,242 @@ A lot of nice hooks to make react hooks easier to use.
 
 - [useStateCB](#useStateCB)
 
-Let react useState hook has callback capability.
+Lets you safely use the state of the react , whose value is the value you want, not the stale value. And also has the ability to callback.
+
+- [useSingleState (recommended)] (#useSingleState)
+
+Use `state` with a way like `this.state` and `this.setState` in the form of `class`. It is also safe to use state and have callback capabilities
 
 - [useLifeCycle](#useLifeCycle)
 
-Support lifecycle methods to make code organization more readable, rather than using a bunch of useEffect.
+Support lifecycle declarations to make code organization more readable, rather than using a bunch of useEffect.
 
 - [useInstanceVar](#useInstanceVar)
 
-Keep the instance value after every re-render.
+Support for instance variables. That is, after each re-render, the latest value of the variable can be obtained.
+
+- [useSingleInstanceVar (recommended)] (#useSingleInstanceVar)
+
+(Recommended) Declare all instance variables together and use them closer to the instance variables
 
 ## Usage
 
 ### useStateCB
 
-Let react useState hook has callback capability.
+Lets you safely use the state of the react , whose value is the value you want, not the stale value. And also has the ability to callback.
 
 ```
-import React from 'react';
+# Example
 
-import { useStateCB } from 'nice-hooks';
+Import React from 'react';
 
-const App = () => {
-  const [count, setCount] = useStateCB(0);
+Import { useStateCB } from 'nice-hooks';
 
-  // Note: must use count state with method arguments instead of directly using the value of count state defined above
-  function doSomeActions(count) {
-    document.title = `Count: ${count}`
-  }
+Export const UseStateCBDemoComp = () => {
+  Const [getCount, setCount] = useStateCB(0);
 
-  return (
-    <div>
-      {count}
+  Function doSomeActions() {
+    Console.log('Current count:', getCount());
+  }
 
-      <button type="button" onClick={() => setCount(count + 1, doSomeActions)}>
-        Increase
-      </button>
-    </div>
-  );
+  Return (
+    <div>
+      <p>{getCount()}</p>
+
+      <button type="button" onClick={() => setCount(getCount() + 1, doSomeActions)}>
+        Increase
+      </button>
+    </div>
+  );
+};
+```
+
+### useSingleState
+
+(Recommended) Use `state` with a way like `this.state` and `this.setState` in the form of `class`. It is also safe to use state and have callback capabilities
+
+```
+# Example
+
+Import React from "react";
+
+Import { useSingleState } from "nice-hooks";
+
+Export const UseSingleStateDemoComp = () => {
+  Const [state, setState] = useSingleState({
+    Count: 0,
+    Time: +new Date()
+  });
+
+  Function doSomeActions() {
+    Console.log("Current count:", state.count);
+  }
+
+  Return (
+    <div>
+      <h2>useSingleState</h2>
+
+      <p>{state.count} {state.time}</p>
+
+      <button
+        Type="button"
+        onClick={() =>
+          setState(
+            {
+              Count: state.count + 1
+            },
+            doSomeActions
+          )
+        }
+      >
+        Increase
+      </button>
+      <button type="button"
+        onClick={() =>
+          setState({
+            Time: +new Date()
+          })
+        }
+      >
+        Chnange Time
+      </button>
+    </div>
+  );
 };
 ```
 
 ### useLifeCycle
 
-Support lifecycle methods to make code organization more readable, rather than using a bunch of useEffect.
+Support lifecycle declarations to make code organization more readable, rather than using a bunch of useEffect.
 
 ```
-import React from 'react';
+# Example
 
-import { useLifeCycle } from 'nice-hooks';
+Import React from 'react';
 
-const App = () => {
-  
-  useLifeCycle({
+Import { useLifeCycle } from 'nice-hooks';
 
-    didMount() {
-      // Do something after mounted
-    },
+Const App = () => {
+  
+  useLifeCycle({
 
-    willUnmount() {
-      // Do something when the component is about to be unmount
-    },
+    didMount() {
+      // Do something after mounted
+    },
 
-    didUpdate() {
-      // Do something after re-rendered.
-    },
+    willUnmount() {
+      // Do something when the component will be unmount
+    },
 
-    didMountAndWillUnmount: [
-      {
-        didMount() {
-          // Example a: setTimeout
-          // Example b: on event
-          // ...
-        },
-        willUnmount() {
-          // Example a: clearTimeout
-          // Example b: off event 
-          // ...
-        }
-      }
-    ]
-  })
+    didUpdate() {
+      // Do something after re-rendered.
+    },
 
-  return (
-    <div></div>
-  );
+    didMountAndWillUnmount: [
+      {
+        didMount() {
+          // Example: setTimeout
+        },
+        willUnmount() {
+          // Example: clearTimeout
+        }
+      },
+      {
+        didMount() {
+          // Example: on resize event
+          // ...
+        },
+        willUnmount() {
+          // Example: off resize event
+          // ...
+        }
+      }
+    ]
+  })
+
+  Return (
+    <div></div>
+  );
 };
 ```
 
 ### useInstanceVar
 
-Keep the instance value after every re-render.
+Support for instance variables. That is, after each re-render, the latest value of the variable can be obtained.
 
 ```
 # Example
 
-import React, { useState } from 'react';
+Import React from "react";
 
-import { useInstanceVar } from 'nice-hooks';
+Import { useInstanceVar, useSingleState } from "nice-hooks";
 
-const App = () => {
+Export const UseInstanceVarDemoComp = () => {
+  Const [getIntervalVal, setIntervalVal] = useInstanceVar(null);
 
-  const [intervalVal, setIntervalVal] = useInstanceVar(null);
+  Const [state, setState] = useSingleState({ count: 0 });
 
-  const [count, setCount] = useState(0);
+  Function start() {
+    Const interval = setInterval(
+      () => setState({ count: state.count + 1 }),
+      1000
+    );
+    setIntervalVal(interval);
+  }
 
-  function start() {
-    const interval = setInterval(() => setCount(oldVal => oldVal + 1), 1000);
-    setIntervalVal(interval);
-  }
+  Function stop() {
+    Const interval = getIntervalVal();
+    Interval && clearInterval(interval);
+  }
 
-  function stop() {
-    clearInterval(intervalVal);
-    setIntervalVal(null);
-  }
+  Return (
+    <div>
+      <p>{state.count}</p>
+      <button onClick={start}>Start</button>
+      <button onClick={stop}>Stop</button>
+    </div>
+  );
+};
+```
 
-  return (
-    <div>
-      <p>{count}</p>
-      <button onClick={start}>Start</button>
-      <button onClick={stop}>Stop</button>
-    </div>
-  );
-}
+### useSingleInstanceVar
 
+(Recommended) Declare all instance variables together and use them closer to the instance variables
+
+```
+# Example
+
+Import React from "react";
+
+Import { useSingleInstanceVar, useSingleState } from "nice-hooks";
+
+Export const UseSingleInstanceVarDemoComp = () => {
+  Const instanceVal = useSingleInstanceVar({
+    Interval: null
+  });
+
+  Const [state, setState] = useSingleState({ count: 0 });
+
+  Function start() {
+    instanceVal.interval = setInterval(
+      () => setState({ count: state.count + 1 }),
+      1000
+    );
+  }
+
+  Function stop() {
+    Const interval = instanceVal.interval;
+    Interval && clearInterval(interval);
+  }
+
+  Return (
+    <div>
+      <p>{state.count}</p>
+      <button type="button" onClick={start}>Start</button>
+      <button type="button" onClick={stop}>Stop</button>
+    </div>
+  );
+};
 ```
 
 ## Contribute
