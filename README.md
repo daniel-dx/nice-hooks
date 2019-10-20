@@ -41,18 +41,18 @@ Lets you safely use the state of the react , whose value is the value you want, 
 ```
 # Example
 
-Import React from 'react';
+import React from 'react';
 
-Import { useStateCB } from 'nice-hooks';
+import { useStateCB } from 'nice-hooks';
 
-Export const UseStateCBDemoComp = () => {
-  Const [getCount, setCount] = useStateCB(0);
+const UseStateCBDemoComp = () => {
+  const [getCount, setCount] = useStateCB(0);
 
-  Function doSomeActions() {
+  function doSomeActions() {
     Console.log('Current count:', getCount());
   }
 
-  Return (
+  return (
     <div>
       <p>{getCount()}</p>
 
@@ -71,21 +71,21 @@ Export const UseStateCBDemoComp = () => {
 ```
 # Example
 
-Import React from "react";
+import React from "react";
 
-Import { useSingleState } from "nice-hooks";
+import { useSingleState } from "nice-hooks";
 
-Export const UseSingleStateDemoComp = () => {
-  Const [state, setState] = useSingleState({
+const UseSingleStateDemoComp = () => {
+  const [state, setState] = useSingleState({
     Count: 0,
     Time: +new Date()
   });
 
-  Function doSomeActions() {
+  function doSomeActions() {
     Console.log("Current count:", state.count);
   }
 
-  Return (
+  return (
     <div>
       <h2>useSingleState</h2>
 
@@ -125,11 +125,11 @@ Support lifecycle declarations to make code organization more readable, rather t
 ```
 # Example
 
-Import React from 'react';
+import React from 'react';
 
-Import { useLifeCycle } from 'nice-hooks';
+import { useLifeCycle } from 'nice-hooks';
 
-Const App = () => {
+const App = () => {
   
   useLifeCycle({
 
@@ -167,7 +167,7 @@ Const App = () => {
     ]
   })
 
-  Return (
+  return (
     <div></div>
   );
 };
@@ -180,29 +180,29 @@ Support for instance variables. That is, after each re-render, the latest value 
 ```
 # Example
 
-Import React from "react";
+import React from "react";
 
-Import { useInstanceVar, useSingleState } from "nice-hooks";
+import { useInstanceVar, useSingleState } from "nice-hooks";
 
-Export const UseInstanceVarDemoComp = () => {
-  Const [getIntervalVal, setIntervalVal] = useInstanceVar(null);
+const UseInstanceVarDemoComp = () => {
+  const [getIntervalVal, setIntervalVal] = useInstanceVar(null);
 
-  Const [state, setState] = useSingleState({ count: 0 });
+  const [state, setState] = useSingleState({ count: 0 });
 
-  Function start() {
-    Const interval = setInterval(
+  function start() {
+    const interval = setInterval(
       () => setState({ count: state.count + 1 }),
       1000
     );
     setIntervalVal(interval);
   }
 
-  Function stop() {
-    Const interval = getIntervalVal();
-    Interval && clearInterval(interval);
+  function stop() {
+    const interval = getIntervalVal();
+    interval && clearInterval(interval);
   }
 
-  Return (
+  return (
     <div>
       <p>{state.count}</p>
       <button onClick={start}>Start</button>
@@ -219,30 +219,30 @@ Export const UseInstanceVarDemoComp = () => {
 ```
 # Example
 
-Import React from "react";
+import React from "react";
 
-Import { useSingleInstanceVar, useSingleState } from "nice-hooks";
+import { useSingleInstanceVar, useSingleState } from "nice-hooks";
 
-Export const UseSingleInstanceVarDemoComp = () => {
-  Const instanceVal = useSingleInstanceVar({
-    Interval: null
+const UseSingleInstanceVarDemoComp = () => {
+  const instanceVal = useSingleInstanceVar({
+    interval: null
   });
 
-  Const [state, setState] = useSingleState({ count: 0 });
+  const [state, setState] = useSingleState({ count: 0 });
 
-  Function start() {
+  function start() {
     instanceVal.interval = setInterval(
       () => setState({ count: state.count + 1 }),
       1000
     );
   }
 
-  Function stop() {
-    Const interval = instanceVal.interval;
-    Interval && clearInterval(interval);
+  function stop() {
+    const interval = instanceVal.interval;
+    interval && clearInterval(interval);
   }
 
-  Return (
+  return (
     <div>
       <p>{state.count}</p>
       <button type="button" onClick={start}>Start</button>
