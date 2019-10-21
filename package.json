@@ -6,8 +6,11 @@
   "scripts": {
     "build": "webpack --config ./webpack.config.js --mode=production",
     "prepare": "npm run build",
-    "test": "nyc mocha --require @babel/register --require ./test/dom.js 'src/**/**spec.js'",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "test": "nyc mocha --require @babel/register --require ./test/dom.js 'test/**/**spec.js'",
+    "test-single": "nyc mocha --require @babel/register --require ./test/dom.js",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "commit": "git-cz",
+    "release:log": "conventional-changelog -p angular -i CHANGELOG_TEMP.md -s -r 0"
   },
   "keywords": [
     "react hook",
@@ -16,8 +19,16 @@
     "life cycle",
     "instance variable"
   ],
+  "gitHooks": {
+    "commit-msg": "node scripts/verify-commit-msg.js"
+  },
   "author": "Daniel.xiao",
   "license": "MIT",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
   "peerDependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
@@ -33,7 +44,12 @@
     "babel-loader": "^8.0.5",
     "chai": "^4.2.0",
     "chai-spies": "^1.0.0",
+    "chalk": "^2.4.2",
+    "commitizen": "^4.0.3",
+    "conventional-changelog": "^3.1.12",
+    "conventional-changelog-cli": "^2.0.25",
     "coveralls": "^3.0.3",
+    "cz-conventional-changelog": "^3.0.2",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.13.2",
     "eslint": "^5.16.0",
@@ -53,7 +69,8 @@
     "react-dom": "^16.8.6",
     "sinon": "^7.3.2",
     "webpack": "^4.31.0",
-    "webpack-cli": "^3.3.2"
+    "webpack-cli": "^3.3.2",
+    "yorkie": "^2.0.0"
   },
   "repository": {
     "type": "git",
