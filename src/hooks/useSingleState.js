@@ -1,12 +1,9 @@
 import { useEffect, useRef } from 'react';
-import useStateCB from './useStateCB';
+import { useStateCB } from './useStateCB';
 
 export function useSingleState(initialStateObj) {
   const [getState, setState] = useStateCB(initialStateObj);
-  const initialStateObjRef = useRef(
-    Object.assign({}, initialStateObj),
-  );
-  let stateObj = initialStateObjRef.current;
+  const stateObj = useRef({ ...initialStateObj }).current;
 
   useEffect(function() {
     Object.keys(stateObj).forEach(key => {
@@ -21,8 +18,10 @@ export function useSingleState(initialStateObj) {
   }, []);
 
   function newSetState(partialStates, callback) {
-    setState(Object.assign({}, getState(), partialStates), callback);
+    setState({ ...getState(), ...partialStates }, callback);
   }
 
   return [stateObj, newSetState];
 }
+
+export default useSingleState;

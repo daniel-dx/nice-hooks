@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 
 export function useSingleInstanceVar(initialValue) {
   const instRef = useRef(initialValue);
-  const returnVal = useRef(Object.assign({}, initialValue)).current;
+  const returnVal = useRef({ ...initialValue }).current;
 
   useEffect(function() {
     Object.keys(returnVal).forEach(key => {
@@ -12,9 +12,7 @@ export function useSingleInstanceVar(initialValue) {
             return instRef.current[key];
           },
           set(val) {
-            instRef.current = Object.assign({}, instRef.current, {
-              [key]: val,
-            });
+            instRef.current = { ...instRef.current, [key]: val };
           },
         });
       }
@@ -23,3 +21,5 @@ export function useSingleInstanceVar(initialValue) {
 
   return returnVal;
 }
+
+export default useSingleInstanceVar;

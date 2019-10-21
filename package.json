@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack --config ./webpack.config.js --mode=production",
     "prepare": "npm run build",
+    "lint": "eslint src/**/*.js --fix",
     "test": "nyc mocha --require @babel/register --require ./test/dom.js 'test/**/**spec.js'",
     "test-single": "nyc mocha --require @babel/register --require ./test/dom.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
@@ -20,7 +21,14 @@
     "instance variable"
   ],
   "gitHooks": {
+    "pre-commit": "lint-staged",
     "commit-msg": "node scripts/verify-commit-msg.js"
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "author": "Daniel.xiao",
   "license": "MIT",
@@ -62,6 +70,7 @@
     "eslint-plugin-react": "^7.14.2",
     "eslint-plugin-react-hooks": "^1.6.1",
     "jsdom": "^15.1.1",
+    "lint-staged": "^9.4.2",
     "mocha": "^6.1.4",
     "nyc": "^14.1.1",
     "prettier": "^1.18.2",

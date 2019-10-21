@@ -8,7 +8,7 @@ export function useStateCB(initialState) {
     if (setState.callback) {
       setState.callback(state);
       setState.callback = null;
-    };
+    }
   }, [state]);
 
   function newSetState(newState, callback) {

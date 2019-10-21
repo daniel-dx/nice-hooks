@@ -13,3 +13,5 @@ export function useInstanceVar(initialValue) {
 
   return [getVal, setVal];
 }
+
+export default useInstanceVar;

@@ -31,3 +31,5 @@ export function useLifeCycle({
     else if (didUpdate && !initRef.current) didUpdate.call();
   });
 }
+
+export default useLifeCycle;
