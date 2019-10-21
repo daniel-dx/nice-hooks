@@ -115,7 +115,15 @@ export const UseSingleStateDemoComp = () => {
       </button>
     </div>
   );
-};# Example
+};
+```
+
+### useLifeCycle
+
+Support lifecycle declarations to make code organization more readable, rather than using a bunch of useEffect.
+
+```
+# Example
 
 import React from 'react';
 
