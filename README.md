@@ -45,22 +45,22 @@ import React from 'react';
 
 import { useStateCB } from 'nice-hooks';
 
-const UseStateCBDemoComp = () => {
-  const [getCount, setCount] = useStateCB(0);
+export const UseStateCBDemoComp = () => {
+  const [getCount, setCount] = useStateCB(0);
 
-  function doSomeActions() {
-    Console.log('Current count:', getCount());
-  }
+  function doSomeActions() {
+    console.log('Current count:', getCount());
+  }
 
-  return (
-    <div>
-      <p>{getCount()}</p>
+  return (
+    <div>
+      <p>{getCount()}</p>
 
-      <button type="button" onClick={() => setCount(getCount() + 1, doSomeActions)}>
-        Increase
-      </button>
-    </div>
-  );
+      <button type="button" onClick={() => setCount(getCount() + 1, doSomeActions)}>
+        Increase
+      </button>
+    </div>
+  );
 };
 ```
 
@@ -75,101 +75,93 @@ import React from "react";
 
 import { useSingleState } from "nice-hooks";
 
-const UseSingleStateDemoComp = () => {
-  const [state, setState] = useSingleState({
-    Count: 0,
-    Time: +new Date()
-  });
+export const UseSingleStateDemoComp = () => {
+  const [state, setState] = useSingleState({
+    count: 0,
+    time: +new Date()
+  });
 
-  function doSomeActions() {
-    Console.log("Current count:", state.count);
-  }
+  function doSomeActions() {
+    console.log("Current count:", state.count);
+  }
 
-  return (
-    <div>
-      <h2>useSingleState</h2>
+  return (
+    <div>
+      <h2>useSingleState</h2>
 
-      <p>{state.count} {state.time}</p>
+      <p>{state.count} {state.time}</p>
 
-      <button
-        Type="button"
-        onClick={() =>
-          setState(
-            {
-              Count: state.count + 1
-            },
-            doSomeActions
-          )
-        }
-      >
-        Increase
-      </button>
-      <button type="button"
-        onClick={() =>
-          setState({
-            Time: +new Date()
-          })
-        }
-      >
-        Chnange Time
-      </button>
-    </div>
-  );
-};
-```
-
-### useLifeCycle
-
-Support lifecycle declarations to make code organization more readable, rather than using a bunch of useEffect.
-
-```
-# Example
+      <button
+        type="button"
+        onClick={() =>
+          setState(
+            {
+              count: state.count + 1
+            },
+            doSomeActions
+          )
+        }
+      >
+        Increase
+      </button>
+      <button type="button"
+        onClick={() =>
+          setState({
+            time: +new Date()
+          })
+        }
+      >
+        Chnange Time
+      </button>
+    </div>
+  );
+};# Example
 
 import React from 'react';
 
 import { useLifeCycle } from 'nice-hooks';
 
 const App = () => {
-  
-  useLifeCycle({
+  
+  useLifeCycle({
 
-    didMount() {
-      // Do something after mounted
-    },
+    didMount() {
+      // Do something after mounted
+    },
 
-    willUnmount() {
-      // Do something when the component will be unmount
-    },
+    willUnmount() {
+      // Do something when the component will be unmount
+    },
 
-    didUpdate() {
-      // Do something after re-rendered.
-    },
+    didUpdate() {
+      // Do something after re-rendered.
+    },
 
-    didMountAndWillUnmount: [
-      {
-        didMount() {
-          // Example: setTimeout
-        },
-        willUnmount() {
-          // Example: clearTimeout
-        }
-      },
-      {
-        didMount() {
-          // Example: on resize event
-          // ...
-        },
-        willUnmount() {
-          // Example: off resize event
-          // ...
-        }
-      }
-    ]
-  })
+    didMountAndWillUnmount: [
+      {
+        didMount() {
+          // Example: setTimeout
+        },
+        willUnmount() {
+          // Example: clearTimeout
+        }
+      },
+      {
+        didMount() {
+          // Example: on resize event
+          // ...
+        },
+        willUnmount() {
+          // Example: off resize event 
+          // ...
+        }
+      }
+    ]
+  })
 
-  return (
-    <div></div>
-  );
+  return (
+    <div></div>
+  );
 };
 ```
 
@@ -184,31 +176,31 @@ import React from "react";
 
 import { useInstanceVar, useSingleState } from "nice-hooks";
 
-const UseInstanceVarDemoComp = () => {
-  const [getIntervalVal, setIntervalVal] = useInstanceVar(null);
+export const UseInstanceVarDemoComp = () => {
+  const [getIntervalVal, setIntervalVal] = useInstanceVar(null);
 
-  const [state, setState] = useSingleState({ count: 0 });
+  const [state, setState] = useSingleState({ count: 0 });
 
-  function start() {
-    const interval = setInterval(
-      () => setState({ count: state.count + 1 }),
-      1000
-    );
-    setIntervalVal(interval);
-  }
+  function start() {
+    const interval = setInterval(
+      () => setState({ count: state.count + 1 }),
+      1000
+    );
+    setIntervalVal(interval);
+  }
 
-  function stop() {
-    const interval = getIntervalVal();
-    interval && clearInterval(interval);
-  }
+  function stop() {
+    const interval = getIntervalVal();
+    interval && clearInterval(interval);
+  }
 
-  return (
-    <div>
-      <p>{state.count}</p>
-      <button onClick={start}>Start</button>
-      <button onClick={stop}>Stop</button>
-    </div>
-  );
+  return (
+    <div>
+      <p>{state.count}</p>
+      <button onClick={start}>Start</button>
+      <button onClick={stop}>Stop</button>
+    </div>
+  );
 };
 ```
 
@@ -223,32 +215,32 @@ import React from "react";
 
 import { useSingleInstanceVar, useSingleState } from "nice-hooks";
 
-const UseSingleInstanceVarDemoComp = () => {
-  const instanceVal = useSingleInstanceVar({
-    interval: null
-  });
+export const UseSingleInstanceVarDemoComp = () => {
+  const instanceVal = useSingleInstanceVar({
+    interval: null
+  });
 
-  const [state, setState] = useSingleState({ count: 0 });
+  const [state, setState] = useSingleState({ count: 0 });
 
-  function start() {
-    instanceVal.interval = setInterval(
-      () => setState({ count: state.count + 1 }),
-      1000
-    );
-  }
+  function start() {
+    instanceVal.interval = setInterval(
+      () => setState({ count: state.count + 1 }),
+      1000
+    );
+  }
 
-  function stop() {
-    const interval = instanceVal.interval;
-    interval && clearInterval(interval);
-  }
+  function stop() {
+    const interval = instanceVal.interval;
+    interval && clearInterval(interval);
+  }
 
-  return (
-    <div>
-      <p>{state.count}</p>
-      <button type="button" onClick={start}>Start</button>
-      <button type="button" onClick={stop}>Stop</button>
-    </div>
-  );
+  return (
+    <div>
+      <p>{state.count}</p>
+      <button type="button" onClick={start}>Start</button>
+      <button type="button" onClick={stop}>Stop</button>
+    </div>
+  );
 };
 ```
 
