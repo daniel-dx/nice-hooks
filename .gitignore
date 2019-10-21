@@ -5,3 +5,5 @@ logfile
 node_modules/
 lib/
 .nyc_output
+
+CHANGELOG_TEMP.md

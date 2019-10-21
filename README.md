@@ -1,4 +1,4 @@
-# Nice Hooks
+# 🍹Nice Hooks
 
 [中文版](README_CN.md)
 
