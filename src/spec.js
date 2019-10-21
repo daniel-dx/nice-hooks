@@ -10,17 +10,17 @@ chai.use(spies);
 import { useStateCB, useLifeCycle, useInstanceVar } from './';
 
 const TestStateCBComponent = () => {
-  const [count, setCount] = useStateCB(0);
+  const [getCount, setCount] = useStateCB(0);
 
   return (
     <div>
-      <p>{count}</p>
+      <p>{getCount()}</p>
 
-      <button type="button" onClick={() => setCount(count + 1, count => { document.title = 'Increase:' + count })}>
+      <button type="button" onClick={() => setCount(getCount() + 1, () => { document.title = 'Increase:' + getCount() })}>
         Increase
       </button>
 
-      <button type="button" onClick={() => setCount(count - 1, count => { document.title = 'Decrease:' + count })}>
+      <button type="button" onClick={() => setCount(getCount() - 1, () => { document.title = 'Decrease:' + getCount() })}>
         Decrease
       </button>
     </div>
@@ -57,7 +57,7 @@ const TestLifeCycleApp = ({didMount, willUnmount, didUpdate, didMountAndWillUnmo
 }
 
 const TestInstanceVarComponent = ({extraFn}) => {
-  const [ countVar, setCountVar ] = useInstanceVar(0);
+  const [ getCountVar, setCountVar ] = useInstanceVar(0);
 
   const [ time, setTime ] = useState(+new Date());
 
@@ -66,8 +66,8 @@ const TestInstanceVarComponent = ({extraFn}) => {
   return (
     <div>
       <span>{time}</span>
-      <span id="txt">{countVar}</span>
-      <button id="notRenderBtn" onClick={() => setCountVar(countVar+1)}>Don't re-render</button>
+      <span id="txt">{getCountVar()}</span>
+      <button id="notRenderBtn" onClick={() => setCountVar(getCountVar()+1)}>Don't re-render</button>
       <button id="renderBtn" onClick={() => setTime(+new Date())}>re-render</button>
     </div>
   )
