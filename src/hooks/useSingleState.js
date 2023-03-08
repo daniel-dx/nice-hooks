@@ -1,11 +1,11 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { useStateCB } from './useStateCB';
 
 export function useSingleState(initialStateObj) {
   const [getState, setState] = useStateCB(initialStateObj);
   const stateObj = useRef({ ...initialStateObj }).current;
 
-  useEffect(function() {
+  if (!stateObj._definedProperty) {
     Object.keys(stateObj).forEach(key => {
       if (key) {
         Object.defineProperty(stateObj, key, {
@@ -15,7 +15,8 @@ export function useSingleState(initialStateObj) {
         });
       }
     });
-  }, []);
+    stateObj._definedProperty = true;
+  }
 
   function newSetState(partialStates, callback) {
     setState({ ...getState(), ...partialStates }, callback);

@@ -140,8 +140,8 @@ describe('useSingleInstanceVar', () => {
       .simulate('click');
 
       expect(lifeCycleVars.a[0]).to.eql(lifeCycleVars.a[1])
-      expect(lifeCycleVars.b[0]).to.eql(lifeCycleVars.c[1])
-      expect(lifeCycleVars.b[0]).to.eql(lifeCycleVars.c[1])
+      expect(lifeCycleVars.b[0]).to.eql(lifeCycleVars.b[1])
+      expect(lifeCycleVars.c[0]).to.eql(lifeCycleVars.c[1])
 
       done();
     }, 200)

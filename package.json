@@ -1,6 +1,6 @@
 {
   "name": "nice-hooks",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "A lot of nice hooks to make react hooks easier to use.",
   "main": "lib/index.js",
   "scripts": {
@@ -68,7 +68,6 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.2",
-    "eslint-plugin-react-hooks": "^1.6.1",
     "jsdom": "^15.1.1",
     "lint-staged": "^9.4.2",
     "mocha": "^6.1.4",
@@ -88,5 +87,8 @@
   "bugs": {
     "url": "https://github.com/daniel-dx/nice-hooks/issues"
   },
-  "homepage": "https://github.com/daniel-dx/nice-hooks"
+  "homepage": "https://github.com/daniel-dx/nice-hooks",
+  "dependencies": {
+    "eslint-plugin-react-hooks": "^4.0.8"
+  }
 }

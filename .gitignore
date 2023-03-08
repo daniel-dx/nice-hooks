@@ -4,7 +4,7 @@ logfile
 
 node_modules/
 lib/
-.nyc_output
+.nyc_output/
 .history
 
 CHANGELOG_TEMP.md

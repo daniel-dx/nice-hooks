@@ -1,10 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 
 export function useSingleInstanceVar(initialValue) {
   const instRef = useRef(initialValue);
   const returnVal = useRef({ ...initialValue }).current;
 
-  useEffect(function() {
+  if (!returnVal._definedProperty) {
     Object.keys(returnVal).forEach(key => {
       if (key) {
         Object.defineProperty(returnVal, key, {
@@ -17,7 +17,8 @@ export function useSingleInstanceVar(initialValue) {
         });
       }
     });
-  }, []);
+    returnVal._definedProperty = true;
+  }
 
   return returnVal;
 }
