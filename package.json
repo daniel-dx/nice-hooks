@@ -1,6 +1,6 @@
 {
   "name": "nice-hooks",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "A lot of nice hooks to make react hooks easier to use.",
   "main": "lib/index.js",
   "scripts": {
